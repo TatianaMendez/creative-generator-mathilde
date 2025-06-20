@@ -5,14 +5,14 @@ export interface optionSelect {
 
 export const CustomerService = {
   customers: [
-    { value: "Banco de Bogotá", label: "Banco de Bogotá" },
-    { value: "Banco de Occidente", label: "Banco de Occidente" },
-    { value: "Banco Avvillas", label: "Banco Avvillas" },
-    { value: "Banco Popular", label: "Banco Popular" },
-    { value: "Metrocuadrado", label: "Metrocuadrado" },
-    { value: "CarroYa", label: "CarroYa" },
-    { value: "TuPlus", label: "TuPlus" },
-    { value: "Dale!", label: "Dale!" },
+    { value: "BANCO-BOG", label: "Banco de Bogotá" },
+    { value: "BANCO-OCC", label: "Banco de Occidente" },
+    { value: "BANCO-AVV", label: "Banco Avvillas" },
+    { value: "BANCO-POP", label: "Banco Popular" },
+    { value: "METRO", label: "Metrocuadrado" },
+    { value: "CARROYA", label: "CarroYa" },
+    { value: "TUPLUS", label: "TuPlus" },
+    { value: "DALE", label: "Dale!" },
   ] as optionSelect[],
 
   getCustomer() {
@@ -34,11 +34,24 @@ export const DeviceService = {
 
 export const EnvironmentService = {
   environment: [
-    { value: "Banca transaccional", label: "Banca transaccional" },
-    { value: "Banca mobile", label: "Banca mobile" },
+    { value: "PB", label: "Banca transaccional" },
+    { value: "BM", label: "Banca mobile" },
   ] as optionSelect[],
 
   getDevice() {
     return this.environment;
+  },
+};
+
+export const CreativeTypeService = {
+  creativeType: [
+    { value: "BannerEstatico", label: "Banner Estático" },
+    { value: "Historia", label: "Historia" },
+    { value: "Personalizado", label: "Personalizado" },
+    { value: "HiperPersonalizado", label: "HiperPersonalizado" },
+  ] as optionSelect[],
+
+  getCreativeType() {
+    return this.creativeType;
   },
 };

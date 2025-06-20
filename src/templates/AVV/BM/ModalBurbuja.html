@@ -1,0 +1,99 @@
+<style>
+  div[id^="mth-space__bavv_modal"] > span,
+  div[id^="mth-space__bavv_modal"] > span > span[id^="smart_kr_"],
+  div[id^="mth-space__bavv_modal"]
+    > span
+    > span[id^="smart_kr_"]
+    > div[id^="wrapper_"] {
+    display: block;
+    height: 100%;
+  }
+  .mth_story-modal-container {
+    display: flex;
+    flex-direction: column;
+  }
+  @media (max-width: 375px) {
+    .mth_story-title {
+      font-size: 20px;
+    }
+  }
+  .mth_story-title {
+    font-size: 20px;
+    text-align: center;
+  }
+  .mth_story-image {
+    width: 75%;
+    height: auto;
+    margin: 12px auto;
+  }
+  @media (max-width: 375px) {
+    .mth_story-description {
+      font-size: 16px;
+    }
+  }
+  .mth_story-description {
+    margin-bottom: 24px;
+    padding: 0 8px;
+  }
+  @media (max-width: 375px) {
+    .mth_story-subtitle,
+    .mth_story-description {
+      font-size: 16px;
+    }
+  }
+
+  .mth_story-subtitle,
+  .mth_story-description {
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+  }
+  .mth_story-action {
+    margin-top: auto;
+  }
+  @media (max-width: 375px) {
+    .mth_story-list {
+      font-size: 16px;
+    }
+  }
+  .mth_story-list {
+    font-size: 16px;
+    list-style-type: none;
+    counter-reset: item;
+    padding-left: 8px;
+    margin-bottom: 24px;
+  }
+  .mth_story-list-item:before {
+    content: counter(item) ".";
+    counter-increment: item;
+    font-weight: 700;
+    position: relative;
+    left: -4px;
+  }
+</style>
+<div>
+  <h2 class="mth_story-title">{title}</h2>
+</div>
+<img
+  apppreloadimage=""
+  class="mth_story-image"
+  src="{image_url}"
+  style="display: block"
+/>
+<p class="mth_story-description">{text}</p>
+<span
+  class="mth-data"
+  style="display: none"
+  data-mth-campaign-name="{campaign_name}"
+  data-mth-campaign-id="{campaign_id}"
+  data-mth-creative-name="{creative_name}"
+  data-mth-creative-id="{creative_id}"
+>
+</span>
+<button
+  class="avv-btn-primary mth_story-action"
+  data-mth-event-click="{event_click}"
+  onclick="mathilde.functions.storiesRedirect('{url}')"
+>
+  {button_text}
+</button>
