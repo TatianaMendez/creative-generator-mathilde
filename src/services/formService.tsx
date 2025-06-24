@@ -46,7 +46,7 @@ export const EnvironmentService = {
 export const CreativeTypeService = {
   creativeType: [
     { value: "BannerEstatico", label: "Banner Estático" },
-    { value: "Historia", label: "Historia" },
+    { value: "Historia", label: "Modal" },
     { value: "Personalizado", label: "Personalizado" },
     { value: "HiperPersonalizado", label: "HiperPersonalizado" },
   ] as optionSelect[],

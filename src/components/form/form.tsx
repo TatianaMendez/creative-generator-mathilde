@@ -18,7 +18,12 @@ export interface FormData {
   campaignName: string;
   creativeId: string;
   creativeName: string;
+  messageCreative: string;
   creativeFTP: string;
+  creativeIdHistory: string;
+  creativeNameHistory: string;
+  messageCreativeHistory: string;
+  creativeFTPHistory: string;
 }
 
 interface FormProps {
@@ -33,10 +38,15 @@ export default function Form({ onSubmit }: FormProps) {
     creative: "",
     url: "",
     campaignId: "",
-    creativeId: "",
     campaignName: "",
+    creativeId: "",
     creativeName: "",
+    messageCreative: "",
     creativeFTP: "",
+    creativeIdHistory: "",
+    creativeNameHistory: "",
+    messageCreativeHistory: "",
+    creativeFTPHistory: "",
   });
 
   const [availableEnvironment, setAvailableEnvironment] = useState<
@@ -137,7 +147,7 @@ export default function Form({ onSubmit }: FormProps) {
     <Card className="mx-auto max-w-2xl">
       <form onSubmit={handleSubmit} className="space-y-4">
         <fieldset className="rounded-lg border border-gray-300 p-4">
-          <legend className="px-2 text-lg font-semibold dark:text-white">
+          <legend className="px-2 text-lg font-bold dark:text-white">
             Información del cliente
           </legend>
           <div className="grid md:grid-cols-2 md:gap-6">
@@ -188,7 +198,7 @@ export default function Form({ onSubmit }: FormProps) {
         </fieldset>
 
         <fieldset className="rounded-lg border border-gray-300 p-4">
-          <legend className="px-2 text-lg font-semibold dark:text-white">
+          <legend className="px-2 text-lg font-bold dark:text-white">
             Configuración del creativo
           </legend>
           <div className="grid md:grid-cols-2 md:gap-6">
@@ -237,7 +247,7 @@ export default function Form({ onSubmit }: FormProps) {
         </fieldset>
 
         <fieldset className="rounded-lg border border-gray-300 p-4">
-          <legend className="px-2 text-lg font-semibold dark:text-white">
+          <legend className="px-2 text-lg font-bold dark:text-white">
             Detalles del creativo
           </legend>
           <div className="grid md:grid-cols-2 md:gap-6">
@@ -283,21 +293,21 @@ export default function Form({ onSubmit }: FormProps) {
             </div>
           </div>
 
-          {formData.creative === "Historia" ? (
+          {formData.creative !== "Historia" ? (
             <div className="grid md:grid-cols-2 md:gap-6">
               <div className="group relative z-0 mb-5 w-full">
                 <div>
                   <div className="mb-2 block">
-                    <Label htmlFor="ElementCreativeId">ID de creativo</Label>
+                    <Label htmlFor="ElementCreativeFTP">FTP de creativo</Label>
                   </div>
                   <TextInput
-                    id="ElementCreativeId"
+                    id="ElementCreativeFTP"
                     type="text"
-                    value={formData.creativeId}
+                    value={formData.creativeFTP}
                     onChange={(e) => {
                       setFormData((prev) => ({
                         ...prev,
-                        creativeId: e.target.value,
+                        creativeFTP: e.target.value,
                       }));
                     }}
                     required
@@ -307,18 +317,16 @@ export default function Form({ onSubmit }: FormProps) {
               <div className="group relative z-0 mb-5 w-full">
                 <div>
                   <div className="mb-2 block">
-                    <Label htmlFor="ElementCreativeName">
-                      Nombre de creativo
-                    </Label>
+                    <Label htmlFor="ElementUrl">Url o utm</Label>
                   </div>
                   <TextInput
-                    id="ElementCreativeName"
+                    id="ElementUrl"
                     type="text"
-                    value={formData.creativeName}
+                    value={formData.url}
                     onChange={(e) => {
                       setFormData((prev) => ({
                         ...prev,
-                        creativeName: e.target.value,
+                        url: e.target.value,
                       }));
                     }}
                     required
@@ -329,48 +337,219 @@ export default function Form({ onSubmit }: FormProps) {
           ) : (
             <></>
           )}
-
-          <div className="grid md:grid-cols-2 md:gap-6">
-            <div className="group relative z-0 mb-5 w-full">
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="ElementCreativeFTP">FTP de creativo</Label>
-                </div>
-                <TextInput
-                  id="ElementCreativeFTP"
-                  type="text"
-                  value={formData.creativeFTP}
-                  onChange={(e) => {
-                    setFormData((prev) => ({
-                      ...prev,
-                      creativeFTP: e.target.value,
-                    }));
-                  }}
-                  required
-                />
-              </div>
-            </div>
-            <div className="group relative z-0 mb-5 w-full">
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="ElementUrl">Url o utm</Label>
-                </div>
-                <TextInput
-                  id="ElementUrl"
-                  type="text"
-                  value={formData.url}
-                  onChange={(e) => {
-                    setFormData((prev) => ({
-                      ...prev,
-                      url: e.target.value,
-                    }));
-                  }}
-                  required
-                />
-              </div>
-            </div>
-          </div>
         </fieldset>
+
+        {formData.creative === "Historia" ? (
+          <>
+            <fieldset className="rounded-lg border border-green-500 p-4">
+              <legend className="px-2 text-lg font-bold text-green-500 dark:text-green-500">
+                Detalles creativo burbuja
+              </legend>
+
+              <div className="grid md:grid-cols-2 md:gap-6">
+                <div className="group relative z-0 mb-5 w-full">
+                  <div>
+                    <div className="mb-2 block">
+                      <Label htmlFor="ElementCreativeId">ID de creativo</Label>
+                    </div>
+                    <TextInput
+                      id="ElementCreativeId"
+                      type="text"
+                      value={formData.creativeId}
+                      onChange={(e) => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          creativeId: e.target.value,
+                        }));
+                      }}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="group relative z-0 mb-5 w-full">
+                  <div>
+                    <div className="mb-2 block">
+                      <Label htmlFor="ElementCreativeName">
+                        Nombre de creativo
+                      </Label>
+                    </div>
+                    <TextInput
+                      id="ElementCreativeName"
+                      type="text"
+                      value={formData.creativeName}
+                      onChange={(e) => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          creativeName: e.target.value,
+                        }));
+                      }}
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 md:gap-6">
+                <div className="group relative z-0 mb-5 w-full">
+                  <div>
+                    <div className="mb-2 block">
+                      <Label htmlFor="ElementCreativeFTP">
+                        FTP de creativo
+                      </Label>
+                    </div>
+                    <TextInput
+                      id="ElementCreativeFTP"
+                      type="text"
+                      value={formData.creativeFTP}
+                      onChange={(e) => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          creativeFTP: e.target.value,
+                        }));
+                      }}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="group relative z-0 mb-5 w-full">
+                  <div>
+                    <div className="mb-2 block">
+                      <Label htmlFor="ElementMessageCreative">
+                        Texto creativo
+                      </Label>
+                    </div>
+                    <TextInput
+                      id="ElementMessageCreative"
+                      type="text"
+                      value={formData.messageCreative}
+                      onChange={(e) => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          messageCreative: e.target.value,
+                        }));
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset className="rounded-lg border border-green-500 p-4">
+              <legend className="px-2 text-lg font-bold text-green-500 dark:text-green-500">
+                Datos para modal
+              </legend>
+
+              <div className="grid md:grid-cols-2 md:gap-6">
+                <div className="group relative z-0 mb-5 w-full">
+                  <div>
+                    <div className="mb-2 block">
+                      <Label htmlFor="ElementCreativeFTPHistory">
+                        FTP de creativo
+                      </Label>
+                    </div>
+                    <TextInput
+                      id="ElementCreativeFTPHistory"
+                      type="text"
+                      value={formData.creativeFTPHistory}
+                      onChange={(e) => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          creativeFTPHistory: e.target.value,
+                        }));
+                      }}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="group relative z-0 mb-5 w-full">
+                  <div>
+                    <div className="mb-2 block">
+                      <Label htmlFor="ElementUrl">Url o utm</Label>
+                    </div>
+                    <TextInput
+                      id="ElementUrl"
+                      type="text"
+                      value={formData.url}
+                      onChange={(e) => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          url: e.target.value,
+                        }));
+                      }}
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="grid md:grid-cols-2 md:gap-6">
+                <div className="group relative z-0 mb-5 w-full">
+                  <div>
+                    <div className="mb-2 block">
+                      <Label htmlFor="ElementCreativeIdHistory">
+                        ID de creativo
+                      </Label>
+                    </div>
+                    <TextInput
+                      id="ElementCreativeIdHistory"
+                      type="text"
+                      value={formData.creativeIdHistory}
+                      onChange={(e) => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          creativeIdHistory: e.target.value,
+                        }));
+                      }}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="group relative z-0 mb-5 w-full">
+                  <div>
+                    <div className="mb-2 block">
+                      <Label htmlFor="ElementCreativeNameHistory">
+                        Nombre de creativo
+                      </Label>
+                    </div>
+                    <TextInput
+                      id="ElementCreativeNameHistory"
+                      type="text"
+                      value={formData.creativeNameHistory}
+                      onChange={(e) => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          creativeNameHistory: e.target.value,
+                        }));
+                      }}
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="group relative z-0 mb-5 w-full">
+                <div>
+                  <div className="mb-2 block">
+                    <Label htmlFor="ElementMessageCreative">
+                      Mensaje de creativo
+                    </Label>
+                  </div>
+                  <TextInput
+                    id="ElementMessageCreative"
+                    type="text"
+                    value={formData.messageCreativeHistory}
+                    onChange={(e) => {
+                      setFormData((prev) => ({
+                        ...prev,
+                        messageCreativeHistory: e.target.value,
+                      }));
+                    }}
+                  />
+                </div>
+              </div>
+            </fieldset>
+          </>
+        ) : (
+          <></>
+        )}
 
         <Button type="submit" className="w-full">
           Generar

@@ -25,7 +25,6 @@ const TemplateViewer: React.FC<Props> = ({ htmlContent }) => {
               const parentLink = target.closest("a");
               if (parentLink) {
                 target = parentLink;
-                console.log("Encontrado enlace padre:", parentLink);
               }
             }
 
@@ -33,8 +32,6 @@ const TemplateViewer: React.FC<Props> = ({ htmlContent }) => {
               const linkElement = target as HTMLAnchorElement;
               if (linkElement.href) {
                 event.preventDefault();
-                console.log("target.href", linkElement.href);
-
                 window.open(linkElement.href, "_blank");
               }
             }

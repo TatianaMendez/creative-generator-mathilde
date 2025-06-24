@@ -72,28 +72,28 @@
   }
 </style>
 <div>
-  <h2 class="mth_story-title">{title}</h2>
+  <h2 class="mth_story-title">{{title}}</h2>
 </div>
 <img
   apppreloadimage=""
   class="mth_story-image"
-  src="{image_url}"
+  src="{{image_url}}"
   style="display: block"
 />
-<p class="mth_story-description">{text}</p>
+<p class="mth_story-description">{{text}}</p>
 <span
   class="mth-data"
   style="display: none"
-  data-mth-campaign-name="{campaign_name}"
-  data-mth-campaign-id="{campaign_id}"
-  data-mth-creative-name="{creative_name}"
-  data-mth-creative-id="{creative_id}"
+  data-mth-campaign-name="{{campaign_name}}"
+  data-mth-campaign-id="{{campaign_id}}"
+  data-mth-creative-name="{{creative_name}}"
+  data-mth-creative-id="{{creative_id}}"
 >
 </span>
 <button
   class="avv-btn-primary mth_story-action"
-  data-mth-event-click="{event_click}"
-  onclick="mathilde.functions.storiesRedirect('{url}')"
+  data-mth-event-click="{{event_click}}"
+  onclick="mathilde.functions.storiesRedirect('{{url}}')"
 >
-  {button_text}
+  {{button_text}}
 </button>

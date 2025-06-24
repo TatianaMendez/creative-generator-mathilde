@@ -2,13 +2,21 @@ import { Card } from "flowbite-react";
 import Form from "../components/form/form";
 import { FormData } from "../components/form/form";
 import Visualizer from "../components/visualizer/visualizer";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export default function CreativeGenerator() {
   const [htmlContent, setHtmlContent] = useState<string>("");
   const [showVisualizer, setShowVisualizer] = useState<boolean>(false);
   const myRef = useRef<HTMLDivElement>(null);
   const [showAlert, setShowAlert] = useState<boolean>(false);
+
+  useEffect(() => {
+    if ((showVisualizer && myRef.current) || (showAlert && myRef.current)) {
+      setTimeout(() => {
+        myRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+  }, [showVisualizer, showAlert]);
 
   const handleSubmit = async (data: FormData) => {
     try {
@@ -19,7 +27,6 @@ export default function CreativeGenerator() {
       const response = await fetch(url);
       let htmlContentText = await response.text();
 
-      // Validar si el archivo existe realmente verificando si no es el index.html principal
       if (
         htmlContentText.includes('<div id="root"></div>') ||
         htmlContentText.includes("<title>Generador de creativos</title>")
@@ -40,7 +47,6 @@ export default function CreativeGenerator() {
       setHtmlContent(htmlContentText);
       setShowVisualizer(true);
       setShowAlert(false);
-      myRef?.current?.scrollIntoView({ behavior: "smooth" });
     } catch (error) {
       setHtmlContent("Error al cargar el contenido");
       setShowVisualizer(true);
@@ -67,6 +73,7 @@ export default function CreativeGenerator() {
         <div
           className="mt-5 flex items-center rounded-lg bg-red-50 p-4 text-sm text-red-800 dark:bg-gray-800 dark:text-red-400"
           role="alert"
+          ref={myRef}
         >
           <svg
             className="me-3 inline h-4 w-4 shrink-0"
@@ -82,20 +89,21 @@ export default function CreativeGenerator() {
         </div>
       )}
 
+      {/* Visualizador */}
       {showVisualizer && (
-        <div className="mt-8 grid" ref={myRef}>
-          <Card className="bg-blue-50">
-            <Visualizer htmlContent={htmlContent} />
-          </Card>
-        </div>
-      )}
+        <>
+          <div className="mt-8 grid" ref={myRef}>
+            <Card className="bg-blue-50">
+              <Visualizer htmlContent={htmlContent} />
+            </Card>
+          </div>
 
-      {showVisualizer && (
-        <div className="mt-8 grid">
-          <Card className="bg-blue-50">
-            <pre id="newCreative" className="whitespace-pre-wrap"></pre>
-          </Card>
-        </div>
+          <div className="mt-8 grid">
+            <Card className="bg-blue-50">
+              <pre id="newCreative" className="whitespace-pre-wrap"></pre>
+            </Card>
+          </div>
+        </>
       )}
     </div>
   );

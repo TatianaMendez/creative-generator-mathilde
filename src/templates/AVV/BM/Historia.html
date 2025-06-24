@@ -1,0 +1,82 @@
+<span
+  class="mth-data"
+  style="display: none"
+  data-mth-campaign-name="{{campaignName}}"
+  data-mth-campaign-id="{{campaignId}}"
+  data-mth-creative-name="{{creativeName}}"
+  data-mth-creative-id="{{creativeId}}"
+>
+</span>
+<img
+  id="mth-story-img"
+  src="{{creativeFTP}}"
+  alt="{{image_alt}}"
+  onclick="openModal()"
+  style="cursor: pointer"
+/>
+<p id="mth-story-text">{{messageCreative}}</p>
+
+<script>
+  function openModal() {
+    // Crear overlay
+    const overlay = document.createElement("div");
+    overlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  `;
+
+    // Cargar el template del modal
+    fetch("./src/templates/AVV/BM/ModalHistoria.html")
+      .then((response) => response.text())
+      .then((html) => {
+        // Crear contenedor del modal
+        const modal = document.createElement("div");
+        modal.style.cssText = `
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 500px;
+        max-height: 80vh;
+        overflow-y: auto;
+        position: relative;
+      `;
+        modal.innerHTML = html;
+
+        // Botón de cerrar
+        const closeBtn = document.createElement("button");
+        closeBtn.innerHTML = "×";
+        closeBtn.style.cssText = `
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #666;
+      `;
+        closeBtn.onclick = () => overlay.remove();
+
+        modal.appendChild(closeBtn);
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+
+        // Cerrar al hacer click fuera del modal
+        overlay.onclick = (e) => {
+          if (e.target === overlay) overlay.remove();
+        };
+      })
+      .catch((error) => {
+        console.error("Error cargando el modal:", error);
+        alert("Error al cargar el modal");
+      });
+  }
+</script>
